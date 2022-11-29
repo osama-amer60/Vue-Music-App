@@ -27,7 +27,10 @@
             <p class="text-2xl font-bold">Your Account</p>
             <!-- Modal Close Button -->
             <div class="modal-close cursor-pointer z-50">
-              <i class="fas fa-times" @click.prevent="modalVisibility = false"></i>
+              <i
+                class="fas fa-times"
+                @click.prevent="modalVisibility = false"
+              ></i>
             </div>
           </div>
 
@@ -37,147 +40,32 @@
               <a
                 class="block rounded py-3 px-4 transition"
                 :class="{
-                  'hover:text-white text-white bg-blue-600':tabs==='login',
-                  'hover:text-blue-600':tabs==='register'
+                  'hover:text-white text-white bg-blue-600': tabs === 'login',
+                  'hover:text-blue-600': tabs === 'register',
                 }"
                 href="#"
-                @click.prevent="tabs='login'"
-                
+                @click.prevent="tabs = 'login'"
                 >Login</a
               >
             </li>
             <li class="flex-auto text-center">
-              <a class="block rounded py-3 px-4 transition" href="#"
-              :class="{
-                  'hover:text-white text-white bg-blue-600':tabs==='register',
-                  'hover:text-blue-600':tabs==='login'
+              <a
+                class="block rounded py-3 px-4 transition"
+                href="#"
+                :class="{
+                  'hover:text-white text-white bg-blue-600':
+                    tabs === 'register',
+                  'hover:text-blue-600': tabs === 'login',
                 }"
-              @click.prevent="tabs='register'"
+                @click.prevent="tabs = 'register'"
                 >Register</a
               >
             </li>
           </ul>
 
-          <!-- Login Form -->
-          <form v-show="tabs==='login'">
-            <!-- Email -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Email</label>
-              <input
-                type="email"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Email"
-              />
-            </div>
-            <!-- Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Password</label>
-              <input
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
-              />
-            </div>
-            <button
-              type="submit"
-              class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-            >
-              Submit
-            </button>
-          </form>
-          <!-- Registration Form -->
-          <vee-form v-show="tabs==='register'"    :validation-schema="schema" @submit="register">
-            <!-- Name -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Name</label>
-              <vee-field
-                name="name"
-                type="text"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Name"
-                />
-                <ErrorMessage class="text-red-600" name='name'/>
-              </div>
-            <!-- Email -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Email</label>
-              <vee-field
-              name="email"
-                type="email"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Enter Email"
-              />
-              <ErrorMessage class="text-red-600" name='email'/>
-            </div>
-            <!-- Age -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Age</label>
-              <vee-field
-               name="age"
-                type="number"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-              />
-              <ErrorMessage class="text-red-600" name='age'/>
-            </div>
-            <!-- Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Password</label>
-              <vee-field
-               name="password"
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
-              />
-              <ErrorMessage class="text-red-600" name='password'/>
+          <LoginFormVue v-if="tabs === 'login'"/>
 
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Confirm Password</label>
-              <vee-field
-                name="confirm_password"
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Confirm Password"
-              />
-              <ErrorMessage class="text-red-600" name='confirm_password'/>
-
-            </div>
-            <!-- Country -->
-            <div class="mb-3">
-              <label class="inline-block mb-2">Country</label>
-              <vee-field as="select" name='country'
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-              >
-                <option value="USA">USA</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Germany">Germany</option>
-                <option value="Egypt">Egypt</option>
-              </vee-field>
-              <ErrorMessage class="text-red-600" name='country'/>
-
-            </div>
-            <!-- TOS -->
-            <div class="mb-3 pl-6">
-              <vee-field
-                name="tos"
-                value="1"
-                type="checkbox"
-                class="w-4 h-4 float-left -ml-6 mt-1 rounded"
-              />
-              <label class="inline-block">Accept terms of service</label>
-
-              <ErrorMessage class="text-red-600 block" name='tos'/>
-
-            </div>
-            <button
-              type="submit"
-              class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-            >
-              Submit
-            </button>
-          </vee-form>
+          <RegisterFormVue v-else/>
         </div>
       </div>
     </div>
@@ -187,21 +75,17 @@
 <script>
 import { mapState, mapWritableState } from "pinia";
 import { useModalStore } from "../stores/Modal";
+import LoginFormVue from "./LoginForm.vue";
+import RegisterFormVue from "./RegisterForm.vue";
+
 export default {
   name: "Auth",
-  data(){
-    return{
-      tabs:'login',
-      schema:{
-        name:'required|min:3|max:30|alpha_spaces',
-        email:'required|email',
-        age:'required|min_value:18|max_value:100',
-        password:'required|min:3|max:30',
-        confirm_password:'required|confirmed:@password',
-        country:'required|excluded:Egypt',
-        tos:'required'
-      }
-    }
+  data() {
+    return {
+      tabs: "login",
+
+
+    };
   },
   computed: {
     ...mapState(useModalStore, ["hiddenClass"]),
@@ -210,10 +94,10 @@ export default {
       modalVisibility: "isOpen",
     }),
   },
-  methods:{
-    register(value){
-      console.log(value)
-    }
+  components:{
+    LoginFormVue,
+    RegisterFormVue
   }
+ 
 };
 </script>
