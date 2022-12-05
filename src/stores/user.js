@@ -6,7 +6,8 @@ import {
   collection,
   addDoc,
   db,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signOut
 } from "../includes/firbase";
 
 export const useUserStore = defineStore("user", {
@@ -45,5 +46,12 @@ export const useUserStore = defineStore("user", {
       await signInWithEmailAndPassword(auth,value.email, value.password);
       this.$state.userLoggedIn = true;
     },
+
+
+    async signOut(){
+      await signOut(auth)
+
+      this.$state.userLoggedIn=false
+    }
   },
 });
