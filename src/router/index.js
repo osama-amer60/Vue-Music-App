@@ -23,11 +23,6 @@ const routes=[
     meta:{
       requiresAuth : true
     }
-
-
-
-
-
     //specific guard
     // beforeEnter: (to, from, next) => {
     //   console.log('specific guard')
@@ -58,7 +53,7 @@ const router = createRouter({
 
 // global guard
 router.beforeEach((to,from,next)=>{
-  console.log(to,from)
+  // console.log(to,from)
 
     if(!to.meta.requiresAuth){
       next()
