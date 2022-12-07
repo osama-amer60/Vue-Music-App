@@ -21,12 +21,14 @@
       >
         <h5>Drop your files here</h5>
       </div>
+
+      <input type="file" multiple @change="upload($event)" />
       <hr class="my-6" />
       <!-- Progess Bars -->
       <div class="mb-4" v-for="upload in uploads" :key="upload.name">
         <!-- File Name -->
         <div class="font-bold text-sm" :class="upload.text_class">
-           <i :class="upload.icon"></i> {{upload.name}}
+          <i :class="upload.icon"></i> {{ upload.name }}
         </div>
 
         <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
@@ -34,61 +36,72 @@
           <div
             class="transition-all progress-bar"
             :class="upload.variant"
-            :style="{width :upload.currentProgress + '%'}"
+            :style="{ width: upload.currentProgress + '%' }"
           ></div>
         </div>
       </div>
-      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import { storage } from "../includes/firbase";
+import { storage, auth, db } from "../includes/firbase";
 import {
   ref,
   uploadBytes,
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-
+import { collection, addDoc } from "firebase/firestore";
+// console.log(auth.currentUser)
 export default {
   name: "upload",
   data() {
     return {
       is_dragover: false,
-      uploads:[],
-      uploadFinish:false
+      uploads: [],
+      uploadFinish: false,
     };
   },
   methods: {
     upload($event) {
-      const files = [...$event.dataTransfer.files];
-      console.log(files);
+      // define array for manu progress bars
+      const files = $event.dataTransfer
+        ? [...$event.dataTransfer.files]
+        : [...$event.target.files];
       this.is_dragover = false;
 
+      //loop on the files array
       files.forEach((file) => {
+        //reject any other type of files
         if (file.type !== "audio/mpeg") {
           return;
         }
 
+        //crete path for  the file in the firbase storage
         const storageRef = ref(storage, `songs/${file.name}`);
         const fileUploaded = uploadBytes(storageRef, file);
 
-        const uploadIndex =  this.uploads.push({
-                fileUploaded,
-                currentProgress : 0,
-                name:file.name,
-                variant:'bg-blue-400',
-                icon :'fas fa-spinner fa-spin',
-                text_class:''
-            })-1
+        //push some style to the upload array to put style on progree bar depends on the state
+        //put obj index in varabile
+        const uploadIndex =
+          this.uploads.push({
+            fileUploaded,
+            currentProgress: 0,
+            name: file.name,
+            variant: "bg-blue-400",
+            icon: "fas fa-spinner fa-spin",
+            text_class: "",
+          }) - 1;
 
-
-
+        //upload the file in firebase storage
         const uploadTask = uploadBytesResumable(storageRef, file);
-        uploadTask.on("state_changed",(snapshot) => {            
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            this.uploads[uploadIndex].currentProgress = progress
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            this.uploads[uploadIndex].currentProgress = progress;
             console.log("Upload is " + progress + "% done");
             switch (snapshot.state) {
               case "paused":
@@ -100,23 +113,44 @@ export default {
             }
           },
           (error) => {
-            this.uploads[uploadIndex].variant='bg-red-400';
-            this.uploads[uploadIndex].icon='fas fa-times'
-            this.uploads[uploadIndex].text_class='text-red-400'
-            console.log('Handle unsuccessful uploads',error)
+            this.uploads[uploadIndex].variant = "bg-red-400";
+            this.uploads[uploadIndex].icon = "fas fa-times";
+            this.uploads[uploadIndex].text_class = "text-red-400";
+            console.log("Handle unsuccessful uploads", error);
           },
-          () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                this.uploads[uploadIndex].icon='fas fa-check'
-                this.uploads[uploadIndex].text_class='text-green-400'
-                this.uploads[uploadIndex].variant='bg-green-400';
-              console.log("File available at", downloadURL);
-            });
+          async () => {
+            //put song details in obj
+            const song = {
+              uid: auth.currentUser.uid,
+              display_name: auth.currentUser.displayName,
+              original_name: uploadTask.snapshot.ref.name,
+              modified_name: uploadTask.snapshot.ref.name,
+              genre: "",
+              comment_count: 0,
+            };
+            song.url = await getDownloadURL(uploadTask.snapshot.ref);
+
+            //add song data in firestore db
+            await addDoc(collection(db, "songs"), song);
+
+            //change progress bar style
+            this.uploads[uploadIndex].icon = "fas fa-check";
+            this.uploads[uploadIndex].text_class = "text-green-400";
+            this.uploads[uploadIndex].variant = "bg-green-400";
           }
         );
-
       });
     },
   },
+  // cancelUploding() {
+  //       this.uploads.forEach((upload)=>{
+  //         upload.uploadTask.cancel();
+  //       })
+  // },
+  // beforeUnmount() {
+  //     // this.uploads.forEach(()=>{
+  //     //   uploadTask.cancel();
+  //     // })
+  //   },
 };
 </script>

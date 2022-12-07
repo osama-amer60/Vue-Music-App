@@ -1,14 +1,10 @@
-import { doc, setDoc } from "@firebase/firestore";
 import { defineStore } from "pinia";
+import { doc, setDoc } from "@firebase/firestore";
 import {
   auth,
-  createUserWithEmailAndPassword,
-  collection,
-  addDoc,
   db,
-  signInWithEmailAndPassword,
-  signOut
 } from "../includes/firbase";
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword,signOut,updateProfile } from "firebase/auth";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -33,9 +29,11 @@ export const useUserStore = defineStore("user", {
         country: value.country,
       });
 
-      //   await userCreated.user.updateProfile({
-      //     displayName:value.name
-      //   })
+      await updateProfile(auth.currentUser,{
+        displayName:value.name
+      })
+
+
 
       //track state of user
       this.$state.userLoggedIn = true;

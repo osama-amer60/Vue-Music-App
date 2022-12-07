@@ -133,10 +133,17 @@
 
 <script>
 import UploadVue from '../components/Upload.vue';
-export default {
 
+export default {
   components:{
     UploadVue,
-  }
+  },
+
+  // beforeRouteLeave(to,from,next){
+  //   this.$refs.upload.cancelUploding()
+  //   next()
+  // }
+
+  
 }
 </script>

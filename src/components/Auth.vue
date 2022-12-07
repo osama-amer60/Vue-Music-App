@@ -77,7 +77,6 @@ import { mapState, mapWritableState } from "pinia";
 import { useModalStore } from "../stores/Modal";
 import LoginFormVue from "./LoginForm.vue";
 import RegisterFormVue from "./RegisterForm.vue";
-
 export default {
   name: "Auth",
   data() {

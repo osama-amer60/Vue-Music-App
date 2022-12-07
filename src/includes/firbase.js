@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword,signOut} from "firebase/auth";
-import { getFirestore ,collection, addDoc} from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getAuth } from "firebase/auth";
+import { getFirestore ,} from "firebase/firestore";
+import { getStorage} from "firebase/storage";
  
 
 
@@ -23,12 +23,6 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 export{
     auth,
-    createUserWithEmailAndPassword,
     db,
-    signInWithEmailAndPassword,
-    collection,
-    addDoc,
-    signOut,
     storage,
-    
 }
