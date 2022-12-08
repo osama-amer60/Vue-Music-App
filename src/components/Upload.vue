@@ -52,10 +52,12 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+
 // console.log(auth.currentUser)
 export default {
   name: "upload",
+  props: ["addSong"],
   data() {
     return {
       is_dragover: false,
@@ -131,7 +133,18 @@ export default {
             song.url = await getDownloadURL(uploadTask.snapshot.ref);
 
             //add song data in firestore db
-            await addDoc(collection(db, "songs"), song);
+            const uploadedSong = await addDoc(collection(db, "songs"), song);
+            console.log(uploadedSong.id)
+            const docRef =  doc(db, "songs", uploadedSong.id);
+            const docSnap = await getDoc(docRef);
+            console.log("Document data:", docSnap.data());
+            this.addSong(docSnap)
+            // if (docSnap.exists()) {
+            //   console.log("Document data:", docSnap.data());
+            // } else {
+            //   // doc.data() will be undefined in this case
+            //   console.log("No such document!");
+            // }
 
             //change progress bar style
             this.uploads[uploadIndex].icon = "fas fa-check";
