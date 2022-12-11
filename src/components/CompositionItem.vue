@@ -134,10 +134,10 @@ export default {
 
       
       
+      (this.is_submission = false),
+      (this.alert_variant = "bg-green-400"),
+      (this.alert_message = "success");
       this.updateUnSavedFlage(false)
-         (this.is_submission = false),
-        (this.alert_variant = "bg-green-400"),
-        (this.alert_message = "success");
     },
     async deleteSong() {
         
