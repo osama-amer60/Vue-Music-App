@@ -46,11 +46,6 @@ import {
   collection,
   where,
   getDocs,
-  orderBy,
-  limit,
-  doc,
-  startAfter,
-  getDoc,
 } from "@firebase/firestore";
 import SongItem from "../components/SongItem.vue";
 import { db, auth } from "../includes/firbase";

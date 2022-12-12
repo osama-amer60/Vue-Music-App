@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import Manage from '../views/ManageView.vue'
 import {useUserStore} from '../stores/user'
-
+import Song from '@/components/Song.vue'
 const routes=[
   {
     name:'home',
@@ -37,6 +37,11 @@ const routes=[
     redirect:{name:'manage'}
   },
   {
+    name:'song',
+    path:'/song/:id',
+    component:Song
+  },
+  {
     //for 404 page or redirect it to home page
     path:'/:catchAll(.*)*',
     redirect:{name:'home'}
@@ -45,6 +50,7 @@ const routes=[
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+
 
   //cange color in active class
   linkExactActiveClass:'text-yellow-500'

@@ -74,12 +74,12 @@ export default {
       await this.authenticate(value)
     }catch(error){
       this.login_in_submission=false;
-      this.login_alert_variant= "bg-red-500";
+      this.login_alert_variant= "bg-red-400";
       this.login_alert_msg = error.message;
       return;
     }
 
-      this.login_alert_variant='bg-green-600'
+      this.login_alert_variant='bg-green-400'
       this.login_alert_msg=' success ! your account has been loged in'
 
 
