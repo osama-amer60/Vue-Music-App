@@ -1,57 +1,26 @@
 # Music App
 
-This template should help get you started developing with Vue 3 in Vite.
+The music app help user to upload, edit and delete his songs.
 
-## Recommended IDE Setup
+## Used tools: 
+* Vue router.
+* Components, Methods, Computed, Watch, Directives and Modifiers.
+* Pinia for global state management.
+* Vee Validate libraray for validation forms.
+* Firebase for Backend (authentication, firestore, storage).
+* Howler libraray to play audios in browser.
+* Html, Css, Bootstrap, Fontawesome.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## features: 
+* Strong validation for register and loging forms 
+* Dashboard for user to control his songs in firesbase directly.
+    * display his songs.
+    * upload song.
+    * edite song.
+    * delete song.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+* User can play or pause song.
+* User can maniplute the position of song while audio is playing
+* User can put comment on any song.
+* User can filter comments by latest or oldest     
+* User must be loged in to use most features. 
