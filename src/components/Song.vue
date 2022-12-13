@@ -1,18 +1,20 @@
 <template>
-  <!-- Music Header -->
-  <section class="w-full mb-8 py-14 text-center text-white relative">
+<main>
+    <!-- Music Header -->
+    <section class="w-full mb-8 py-14 text-center text-white relative">
     <div
       class="absolute inset-0 w-full h-full box-border bg-contain music-bg"
       style="background-image: url(/assets/img/song-header.png)"
     ></div>
-    <div class="container mx-auto flex items-center">
+    <div class="container mx-auto px-24 flex items-center ">
       <!-- Play/Pause Button -->
       <button
+      
       @click.prevent="newSong(song)"
         type="button"
         class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none"
       >
-        <i class="fas fa-play"></i>
+        <i class="fas" :class="{'fa-play':!playing, 'fa-pause':playing}"></i>
       </button>
       <div class="z-50 text-left ml-8">
         <!-- Song Info -->
@@ -22,7 +24,7 @@
     </div>
   </section>
   <!-- Form -->
-  <section class="container mx-auto mt-6">
+  <section class="container mx-auto px-24 mt-6" id="comments">
     <div class="bg-white rounded border border-gray-200 relative flex flex-col">
       <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
         <!-- Comment Count -->
@@ -69,7 +71,7 @@
     </div>
   </section>
   <!-- Comments -->
-  <ul class="container mx-auto">
+  <ul class="container mx-auto px-24">
     <li class="p-6 bg-gray-50 border border-gray-200" v-for="comment in sortedComments" :key="comment.docId">
       <!-- Comment Author -->
       <div class="mb-5">
@@ -80,6 +82,7 @@
       <p>{{comment.comment}}      </p>
     </li>
   </ul>
+</main>
 </template>
 
 <script>
@@ -115,6 +118,7 @@ export default {
   },
   computed: {
     ...mapState(useUserStore, ["userLoggedIn"]),
+    ...mapState(usePlayerStore, ['playing']),
     sortedComments(){
         return this.comments.sort((a,b)=>{
             if(this.sort == '1'){
@@ -128,7 +132,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(usePlayerStore,['newSong']),
+    ...mapActions(usePlayerStore,['newSong','toggleAudio']),
     async addComment(values, { resetForm }) {
       (this.comment_in_submission = true),
         (this.comment_show_alert = true),
