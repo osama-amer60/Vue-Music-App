@@ -1,0 +1,22 @@
+{
+    "header":{
+        "logo":"Music",
+        "about":"About",
+        "manage":"manage",
+        "logout":"logOut",
+        "login":"Login / Register"
+
+    },
+    "home":{
+        "listen":"Listen to Great Music!",
+        "songs":"Songs"
+    },
+    "song":{
+        "comment_count":"No comments | 1 comment | {count} comments"
+    },
+    "manage":{
+        "songs":"My Songs",
+        "upload":"Upload"
+    }
+    
+}

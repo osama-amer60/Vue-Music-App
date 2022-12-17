@@ -1,0 +1,19 @@
+{
+    "header":{
+        "logo":"Musique",
+        "about":"à propos de nous",
+        "manage":"gérer",
+        "logout":"Se déconnecter",
+        "login":"Connexion / Enregistrer"
+
+    },
+    "home":{
+        "listen":"Écoutez de la bonne musique!",
+        "songs":"Chansons"
+    },
+    "manage":{
+        "songs":"Mes chansons",
+        "upload":"Télécharger"
+
+    }
+}
