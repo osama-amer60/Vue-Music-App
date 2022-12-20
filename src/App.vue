@@ -1,9 +1,9 @@
 <template>
   <Header />
   <router-view v-slot="{Component}">
-    <transition name="fade" mode="in-out">
+    <!-- <transition name="fade" mode="out-in"> -->
       <component :is="Component"></component>
-    </transition>
+    <!-- </transition> -->
   </router-view>
   <Player />
   <Auth />

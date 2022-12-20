@@ -1,9 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import Manage from '../views/ManageView.vue'
+
 import {useUserStore} from '../stores/user'
-import Song from '@/components/Song.vue'
+
+
+
+// use dynamic route to improve the performance
+const HomeView = ()=>import("../views/HomeView.vue")
+const AboutView = ()=>import("../views/AboutView.vue")
+const Manage = ()=>import("../views/ManageView.vue")
+const Song = ()=>import("@/components/Song.vue")
+
 const routes=[
   {
     name:'home',

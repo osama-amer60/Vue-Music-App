@@ -79,7 +79,18 @@ export default {
         if (file.type !== "audio/mpeg") {
           return;
         }
-
+        // cancel upload if user is offline
+        if(!navigator.onLine){
+          this.uploads.push({
+            fileUploaded:{},
+            currentProgress: 100,
+            name: file.name,
+            variant: "bg-red-400",
+            icon: "fas fa-times",
+            text_class: "text-red-400",
+          })
+          return
+        }
         //crete path for  the file in the firbase storage
         const storageRef = ref(storage, `songs/${file.name}`);
         const fileUploaded = uploadBytes(storageRef, file);
