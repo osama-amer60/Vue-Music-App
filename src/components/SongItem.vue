@@ -1,7 +1,8 @@
 <template>
   <li
     class="flex justify-between items-center p-3 pl-6 cursor-pointer transition duration-300 hover:bg-gray-50"
-  >
+    :id="`song-id-${song.docId}`"
+    >
     <div>
       <router-link :to="{name:'song', params:{id:song.docId}}" class="font-bold block text-gray-600">{{song.modified_name}}</router-link>
       <span class="text-gray-500 text-sm">{{song.display_name}}</span>

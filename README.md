@@ -16,6 +16,8 @@ The music app help user to upload, edit and delete his songs.
 * 📌Dynamic Route Imports to improve the performance.
 * 📌Nprogress plugin to make page loading more smoothly.
 * 📌Rollup plugin Visualizer to reduce the bundle size of the app.
+* 📌Vitest library for testing.
+* 📌Vue Test Utils library to connect components with vitest.
 * 📌Html, Css, Tailwind, Fontawesome.
 
 
