@@ -6,7 +6,6 @@ import {useUserStore} from '../stores/user'
 
 // use dynamic route to improve the performance
 const HomeView = ()=>import("../views/HomeView.vue")
-const AboutView = ()=>import("../views/AboutView.vue")
 const Manage = ()=>import("../views/ManageView.vue")
 const Song = ()=>import("@/components/Song.vue")
 
@@ -15,11 +14,6 @@ const routes=[
     name:'home',
     path:'/',
     component:HomeView
-  },
-  {
-    name:'about',
-    path:'/about',
-    component:AboutView
   },
   {
     name:'manage',
